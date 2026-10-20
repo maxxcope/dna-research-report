@@ -1,0 +1,17 @@
+# SYNTHETIC SOFTWARE TEST DATA: not a person, genome, or biological simulation.
+# Invented identifiers and positions. Do not annotate as real variants.
+# Format: marker_id chromosome position genotype; positions are 1-based.
+# Four-column export shape only. No real genome build is asserted.
+# Includes a no-call, haploid calls, indel codes, and discordant co-located probes.
+synthetic_001 1 1001 AA
+synthetic_002 1 2001 AG
+synthetic_003 1 3001 --
+synthetic_004 2 1001 CT
+synthetic_005 2 2001 GG
+synthetic_006 X 1001 A
+synthetic_007 Y 1001 C
+synthetic_008 MT 1001 T
+synthetic_009 3 1001 II
+synthetic_010 3 2001 DD
+synthetic_011 4 1001 AA
+synthetic_012 4 1001 CC

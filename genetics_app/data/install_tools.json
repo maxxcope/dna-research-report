@@ -1,0 +1,44 @@
+{
+  "darwin-arm64": {
+    "java": {
+      "url": "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.12.1%2B1/OpenJDK21U-jre_aarch64_mac_hotspot_21.0.12.1_1.tar.gz",
+      "sha256": "dec50fc6f9fcd4fe3ae8cabf5a5fa68f6afc48841f7698e468e9aa5d54beed84",
+      "bytes": 48144965,
+      "version": "jdk-21.0.12.1+1"
+    },
+    "plink": {
+      "url": "https://s3.amazonaws.com/plink1-assets/plink_mac_20260927.zip",
+      "sha256": "927ecadbefb3e0ceefbe4978d71bf63566e9ea422d6595c2ee23a83ad76eeb62",
+      "bytes": 2203536,
+      "version": "1.9.0-20260927"
+    }
+  },
+  "darwin-x86_64": {
+    "java": {
+      "url": "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.12.1%2B1/OpenJDK21U-jre_x64_mac_hotspot_21.0.12.1_1.tar.gz",
+      "sha256": "6717ec641fd9ce0bb209ca083ee23b42202ac68cb6fcc5753496e0e4a0f41989",
+      "bytes": 42131876,
+      "version": "jdk-21.0.12.1+1"
+    },
+    "plink": {
+      "url": "https://s3.amazonaws.com/plink1-assets/plink_mac_20260927.zip",
+      "sha256": "927ecadbefb3e0ceefbe4978d71bf63566e9ea422d6595c2ee23a83ad76eeb62",
+      "bytes": 2203536,
+      "version": "1.9.0-20260927"
+    }
+  },
+  "linux-x86_64": {
+    "java": {
+      "url": "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.12.1%2B1/OpenJDK21U-jre_x64_linux_hotspot_21.0.12.1_1.tar.gz",
+      "sha256": "2413149700df0f7d440500a84a8f764c535f21e5a5e87d38328b64eec2c5b500",
+      "bytes": 52059408,
+      "version": "jdk-21.0.12.1+1"
+    },
+    "plink": {
+      "url": "https://s3.amazonaws.com/plink1-assets/plink_linux_x86_64_20260927.zip",
+      "sha256": "ee4d8616dc64c04ed395e81a7bb04f9b3d92e4bf23d12a8b6233b19f7227eccd",
+      "bytes": 6319850,
+      "version": "1.9.0-20260927"
+    }
+  }
+}

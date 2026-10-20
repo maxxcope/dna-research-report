@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "definitions": [
+    {
+      "id": "i5039800",
+      "name": "APP E682K",
+      "gene": "APP",
+      "source": "https://bots.snpedia.com/index.php/i5039800",
+      "source_content_sha256": "ffc45980be6044ef34347cd61f6cc4d012354fa088c7d519d780cc891e986a5b",
+      "source_change": [
+        "G",
+        "A"
+      ],
+      "placements": {
+        "38": {
+          "chrom": "21",
+          "pos": 25897593,
+          "ref": "C",
+          "alt": "T",
+          "hgvs": "NC_000021.9:g.25897593C>T"
+        },
+        "37": {
+          "chrom": "21",
+          "pos": 27269905,
+          "ref": "C",
+          "alt": "T",
+          "hgvs": "NC_000021.8:g.27269905C>T"
+        }
+      },
+      "registry_id": "CA409806308",
+      "registry_source": "https://reg.genome.network/allele/CA409806308",
+      "registry_response_sha256": "ed03e5247851df8584b4fca72081e2ad4315a607c78ad5291de14531021a8438",
+      "publication": "https://doi.org/10.1002/emmm.201100138",
+      "reviewed_on": "2026-10-19",
+      "scope": "Sequence identity and source metadata only; no clinical reclassification or provider assay validation."
+    },
+    {
+      "id": "i5047649",
+      "name": "PSEN1 L173F (G>C)",
+      "gene": "PSEN1",
+      "source": "https://bots.snpedia.com/index.php/i5047649",
+      "source_content_sha256": "d19105705fdb56dd64f7178d7decec745856d7ae337c956b3af8fed281e86826",
+      "source_change": [
+        "G",
+        "C"
+      ],
+      "placements": {
+        "38": {
+          "chrom": "14",
+          "pos": 73186891,
+          "ref": "G",
+          "alt": "C",
+          "hgvs": "NC_000014.9:g.73186891G>C"
+        },
+        "37": {
+          "chrom": "14",
+          "pos": 73653599,
+          "ref": "G",
+          "alt": "C",
+          "hgvs": "NC_000014.8:g.73653599G>C"
+        }
+      },
+      "registry_id": "CA390296202",
+      "registry_source": "https://reg.genome.network/allele/CA390296202",
+      "registry_response_sha256": "b7c3d72ac18493447a69337856f937ae64efddcddff738ab2f514fcabda66607",
+      "publication": "https://doi.org/10.1002/alz.12005",
+      "reviewed_on": "2026-10-19",
+      "scope": "Sequence identity and source metadata only; no clinical reclassification or provider assay validation."
+    }
+  ]
+}

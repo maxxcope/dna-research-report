@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dna-research-report"
+version = "1.0.0"
+description = "Local, evidence-linked reports from raw genotype text files"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+research = ["numpy>=1.26,<3", "scikit-learn>=1.4,<2", "pysam>=0.22,<0.25"]
+
+[project.scripts]
+dna-research-report = "genetics_app.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["genetics_app*"]
+
+[tool.setuptools.package-data]
+genetics_app = ["data/*.json", "data/*.txt"]

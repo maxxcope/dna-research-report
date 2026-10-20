@@ -1,0 +1,42 @@
+{
+  "version": "2026-10-19",
+  "description": "Three original, source-linked educational rules. Not a comprehensive trait or clinical interpretation database.",
+  "rules": [
+    {
+      "id": "lactase-persistence", "title": "Lactase persistence marker", "gene": "MCM6 / LCT", "rsid": "rs4988235", "chrom": "2",
+      "positions": {"37": 136608646, "38": 135851076}, "alleles": "AG", "ploidy": 2,
+      "explanations": {
+        "AA": "Two copies of the forward-strand A allele associated with adult lactase persistence in the studied European populations.",
+        "AG": "One copy of the forward-strand A allele associated with adult lactase persistence in the studied European populations.",
+        "GG": "The commonly studied European lactase-persistence allele is not present at this marker. This alone does not establish lactose intolerance."
+      },
+      "limits": "Other lactase-persistence variants occur in other populations. Symptoms and lactose tolerance cannot be diagnosed from this marker. The paper's -13910 T allele corresponds to genomic forward A; the app does not infer strand flips.",
+      "evidence": "Original association study; population-dependent interpretation",
+      "sources": ["https://pubmed.ncbi.nlm.nih.gov/11788828/", "https://www.ncbi.nlm.nih.gov/snp/rs4988235", "https://pmc.ncbi.nlm.nih.gov/articles/PMC3769926/"]
+    },
+    {
+      "id": "aldh2", "title": "ALDH2 alcohol-metabolism marker", "gene": "ALDH2", "rsid": "rs671", "chrom": "12",
+      "positions": {"37": 112241766, "38": 111803962}, "alleles": "AG", "ploidy": 2,
+      "explanations": {
+        "AA": "Two copies of the low-activity ALDH2 allele are reported in this file. This variant is associated with impaired acetaldehyde processing and alcohol flushing.",
+        "AG": "One copy of the low-activity ALDH2 allele is reported in this file. This variant is associated with impaired acetaldehyde processing and alcohol flushing.",
+        "GG": "The rs671 low-activity A allele is not present. This does not establish normal alcohol metabolism or a safe alcohol intake."
+      },
+      "limits": "Flushing is an imperfect proxy for genotype, and other genes and exposures matter. This is not a recommendation to drink or a quantified personal cancer-risk estimate.",
+      "evidence": "Functional variant with population-based cohort evidence",
+      "sources": ["https://pubmed.ncbi.nlm.nih.gov/29707772/", "https://www.ncbi.nlm.nih.gov/clinvar/variation/18390/"]
+    },
+    {
+      "id": "earwax", "title": "Earwax-type marker", "gene": "ABCC11", "rsid": "rs17822931", "chrom": "16",
+      "positions": {"37": 48258198, "38": 48224287}, "alleles": "CT", "ploidy": 2,
+      "explanations": {
+        "CC": "This genotype is associated with wet earwax in the original ABCC11 study.",
+        "CT": "This genotype is associated with wet earwax in the original ABCC11 study.",
+        "TT": "This genotype is associated with dry earwax in the original ABCC11 study."
+      },
+      "limits": "An association does not independently verify the measured trait or the raw call. The transcript G>A variant is C>T on the genomic forward strand; no ancestry or hygiene inference is made.",
+      "evidence": "Original functional and association study",
+      "sources": ["https://pubmed.ncbi.nlm.nih.gov/16444273/", "https://www.ncbi.nlm.nih.gov/clinvar/variation/3558/"]
+    }
+  ]
+}

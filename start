@@ -1,0 +1,50 @@
+#!/bin/sh
+# Download a verified Python manager, then hand off to the local installer.
+set -eu
+umask 077
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+fail() { printf '\nSetup could not continue: %s\nRun ./start again after fixing this.\n' "$*" >&2; exit 1; }
+case "${1-}" in
+  --help|-h) printf '%s\n' 'Usage: ./start [--setup-only | --app-only | APP_ARGUMENTS...]' 'First launch installs tools and public references, then opens the terminal app.' 'Use --app-only to open exports/examples while full setup is unavailable.'; exit 0;;
+esac
+case "$(uname -s):$(uname -m)" in
+  Darwin:arm64) TARGET=aarch64-apple-darwin; HASH=e0b1d4743ce64c55d9f0f4a444afa6b81125680070ee04e853fcd0f6c1ebf8f1;;
+  Darwin:x86_64) TARGET=x86_64-apple-darwin; HASH=7be2dcd316122f4b3e5a0a7889f6248266c14425374e105ff7dc9779184603a6;;
+  Linux:x86_64) TARGET=x86_64-unknown-linux-gnu; HASH=2b428396f12572d4429cf210ca234dd599a33b3af0958a4d5ed569d63e3f344f;;
+  *) fail 'Automatic setup supports macOS Apple Silicon/Intel and Linux x86_64 (glibc). See docs/REFERENCE_SETUP.md for manual installation.';;
+esac
+DATA=${DNA_RESEARCH_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/dna-research-report}
+case "$DATA" in /*) ;; *) DATA="$PWD/$DATA";; esac
+case "$DATA/" in "$ROOT/"*) fail 'Choose an application data folder outside this project with DNA_RESEARCH_HOME.';; esac
+mkdir -p "$DATA" || fail 'The application data folder is not writable. Set DNA_RESEARCH_HOME to a writable folder.'
+DATA=$(CDPATH= cd -- "$DATA" && pwd -P)
+case "$DATA/" in "$ROOT/"*) fail 'Choose an application data folder outside this project with DNA_RESEARCH_HOME.';; esac
+export DNA_RESEARCH_HOME="$DATA"
+export UV_CACHE_DIR="$DATA/uv-cache" UV_PYTHON_INSTALL_DIR="$DATA/python"
+export UV_NO_ENV_FILE=1 UV_NO_CONFIG=1
+UV="$DATA/uv-0.13.4-$TARGET"
+checksum() {
+  if command -v shasum >/dev/null 2>&1; then shasum -a 256 "$1" | cut -d ' ' -f 1
+  elif command -v sha256sum >/dev/null 2>&1; then sha256sum "$1" | cut -d ' ' -f 1
+  else fail 'SHA-256 verification requires shasum or sha256sum.'; fi
+}
+# Each download uses its own directory; concurrent starts cannot truncate a binary.
+if ! test -x "$UV" || ! "$UV" --version 2>/dev/null | grep -q '^uv 0\.13\.4 '; then
+  command -v curl >/dev/null 2>&1 || fail 'curl is required for the first download.'
+  command -v tar >/dev/null 2>&1 || fail 'tar is required for the first download.'
+  TEMP=$(mktemp -d "$DATA/bootstrap.XXXXXXXX") || fail 'Could not create a download folder.'
+  trap 'rm -rf "$TEMP"' EXIT
+  trap 'exit 130' INT
+  trap 'exit 143' TERM HUP
+  printf '%s\n' 'Preparing Python. First launch needs internet access; no DNA file is read.'
+  curl --fail --location --proto '=https' --tlsv1.2 --retry 3 --connect-timeout 20 --max-time 600 \
+    "https://github.com/astral-sh/uv/releases/download/0.13.4/uv-$TARGET.tar.gz" -o "$TEMP/uv.tar.gz" || fail 'Python manager download failed. Check your connection and available disk space.'
+  test "$(checksum "$TEMP/uv.tar.gz")" = "$HASH" || fail 'Python manager checksum did not match. Nothing from this download was executed.'
+  tar -xzf "$TEMP/uv.tar.gz" -C "$TEMP" "uv-$TARGET/uv" || fail 'Python manager archive could not be read.'
+  chmod 700 "$TEMP/uv-$TARGET/uv"
+  mv -f "$TEMP/uv-$TARGET/uv" "$UV"
+  rm -rf "$TEMP"
+  trap - EXIT INT TERM HUP
+fi
+cd "$ROOT"
+exec "$UV" run --no-project --no-config --no-env-file --managed-python --python 3.12.15 python -I "$ROOT/launch.py" "$@"

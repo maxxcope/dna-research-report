@@ -1,0 +1,11 @@
+# Entirely synthetic demonstration. No person's genome was used.
+# GRCh37 forward-strand calls at published marker coordinates.
+# Invented genotypes selected to exercise rules; not a biologically simulated person.
+# marker_id chromosome position genotype
+rs4988235 2 136608646 AG
+rs671 12 112241766 GG
+rs17822931 16 48258198 TT
+synthetic_missing 1 1001 --
+synthetic_conflict_a 1 2001 AA
+synthetic_conflict_b 1 2001 CC
+synthetic_indel 1 3001 II
