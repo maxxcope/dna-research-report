@@ -337,6 +337,18 @@ class TerminalRestorationTests(unittest.TestCase):
 
 @unittest.skipIf(os.name == 'nt', 'POSIX terminal integration')
 class PasteInputTests(unittest.TestCase):
+    def test_unset_pty_dimensions_preserve_editable_prompts_and_menu_labels(self):
+        setup = ('import os\nimport genetics_app.terminal as terminal\n'
+                 'terminal.shutil.get_terminal_size=lambda *args:os.terminal_size((0,0))')
+        with self.session(setup=setup) as (process, slave, previous):
+            self.receive(b'Path: ')
+            self.send('/tmp/invented.txt\r')
+            self.result('/tmp/invented.txt', process)
+        with self.session("ui.choose('Pick',[('go','Continue')],back=False)", setup=setup) as (process, slave, previous):
+            self.receive(b'Continue')
+            self.send('\r')
+            self.result('go', process)
+
     @contextmanager
     def session(self, expression="ui.line('Path')", setup=''):
         import pty

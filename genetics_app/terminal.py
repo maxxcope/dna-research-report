@@ -17,6 +17,13 @@ class QuitFlow(Exception):
     pass
 
 
+def terminal_size():
+    """Python 3.10 can return zero dimensions for a newly opened PTY."""
+    size = shutil.get_terminal_size((80, 24))
+    return os.terminal_size((size.columns if size.columns > 0 else 80,
+                             size.lines if size.lines > 0 else 24))
+
+
 class Terminal:
     def __init__(self, stdin=None, stdout=None):
         self.stdin = stdin or sys.stdin
@@ -30,7 +37,7 @@ class Terminal:
     def screen(self):
         """Start a fresh page by scrolling, never by erasing terminal history."""
         if self.arrows:
-            rows = max(1, shutil.get_terminal_size((80, 24)).lines)
+            rows = max(1, terminal_size().lines)
             self.stdout.write('\r\n' * rows + '\x1b[H')
             self.stdout.flush()
 
@@ -58,7 +65,7 @@ class Terminal:
             while True:
                 # Keep long paths on one screen row so editing never corrupts
                 # the next prompt. The full value remains in the input buffer.
-                width = max(4, shutil.get_terminal_size((80, 24)).columns)
+                width = max(4, terminal_size().columns)
                 prompt = label if len(label) < width // 2 else label[:max(0, width // 2 - 3)] + '…: '
                 room = max(1, width - len(prompt) - 1)
                 start = max(0, cursor - room + 1)
@@ -189,7 +196,7 @@ class Terminal:
             options.append(('back', 'Back'))
         options.append(('quit', 'Quit'))
         self.say('\n' + prompt)
-        self.say('─' * min(52, max(12, shutil.get_terminal_size((80, 24)).columns - 2)))
+        self.say('─' * min(52, max(12, terminal_size().columns - 2)))
         self.say()
         if not self.arrows:
             for i, (_, label) in enumerate(options, 1):
@@ -211,8 +218,9 @@ class Terminal:
         current = default
         self.say('↑/↓ move   Enter select')
         self.say()
-        rows = min(len(options), max(1, min(12, shutil.get_terminal_size((80, 24)).lines - 9)))
-        columns = max(1, shutil.get_terminal_size((80, 24)).columns - 4)
+        size = terminal_size()
+        rows = min(len(options), max(1, min(12, size.lines - 9)))
+        columns = max(1, size.columns - 4)
         scrolling = len(options) > rows
         while True:
             start = min(max(0, current - rows // 2), len(options) - rows)
